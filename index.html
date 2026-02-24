@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Essential Brands · Hub de Afiliados</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue: #1B3FA0;
+    --blue-mid: #2550C0;
+    --blue-light: #3B6BE0;
+    --blue-pale: #EBF0FF;
+    --blue-ultra-pale: #F4F7FF;
+    --dark: #0D1B4B;
+    --text: #1a2340;
+    --muted: #6B7CA3;
+    --border: #D5DCEE;
+    --white: #ffffff;
+    --success: #10B981;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: #F0F4FF;
+    min-height: 100vh;
+    position: relative;
+  }
+
+  /* Top stripe */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--blue), var(--blue-light), var(--blue));
+    z-index: 100;
+  }
+
+  /* Background pattern */
+  .bg-pattern {
+    position: fixed;
+    inset: 0;
+    background-image:
+      radial-gradient(ellipse 70% 50% at 10% 0%, rgba(27,63,160,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 60% at 90% 100%, rgba(59,107,224,0.07) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Subtle dot grid */
+  .bg-grid {
+    position: fixed;
+    inset: 0;
+    background-image: radial-gradient(circle, rgba(27,63,160,0.08) 1px, transparent 1px);
+    background-size: 28px 28px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    position: relative;
+    z-index: 2;
+    max-width: 660px;
+    margin: 0 auto;
+    padding: 56px 24px 80px;
+  }
+
+  /* ── Header ── */
+  .header {
+    text-align: center;
+    margin-bottom: 40px;
+    animation: fadeDown 0.7s ease both;
+  }
+
+  /* Logo */
+  .logo-wrap {
+    display: inline-block;
+    margin-bottom: 36px;
+  }
+
+  .logo-box {
+    background: white;
+    border-radius: 16px;
+    padding: 18px 36px;
+    box-shadow: 0 4px 24px rgba(27,63,160,0.12);
+    display: inline-flex;
+    align-items: center;
+    gap: 0;
+  }
+
+  .logo-text {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-size: 28px;
+    color: var(--blue);
+    letter-spacing: -0.01em;
+    line-height: 1.1;
+    text-align: left;
+  }
+
+  .divider-header {
+    width: 48px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--blue), var(--blue-light));
+    border-radius: 2px;
+    margin: 0 auto 24px;
+  }
+
+  h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(26px, 5vw, 38px);
+    font-weight: 800;
+    line-height: 1.15;
+    color: var(--dark);
+    margin-bottom: 12px;
+    letter-spacing: -0.02em;
+  }
+
+  h1 em {
+    font-style: normal;
+    color: var(--blue);
+  }
+
+  .subtitle {
+    font-size: 15px;
+    color: var(--muted);
+    line-height: 1.65;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  /* ── Form Card ── */
+  .card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 44px 44px;
+    box-shadow: 0 8px 40px rgba(27,63,160,0.09);
+    animation: fadeUp 0.7s 0.15s ease both;
+  }
+
+  @media (max-width: 580px) { .card { padding: 28px 22px; } }
+
+  .section-label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 22px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-label::before {
+    content: '';
+    width: 20px; height: 2px;
+    background: var(--blue);
+    border-radius: 2px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1; height: 1px;
+    background: var(--border);
+  }
+
+  .field-group { margin-bottom: 22px; }
+
+  label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 7px;
+    letter-spacing: 0.01em;
+  }
+
+  label .req { color: var(--blue); margin-left: 2px; }
+
+  input, select {
+    width: 100%;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    padding: 13px 16px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14.5px;
+    color: var(--text);
+    background: var(--white);
+    transition: all 0.2s ease;
+    outline: none;
+    appearance: none;
+    -webkit-appearance: none;
+  }
+
+  input::placeholder { color: #B0BBCC; }
+  input:hover, select:hover { border-color: #aabbdd; }
+
+  input:focus, select:focus {
+    border-color: var(--blue);
+    box-shadow: 0 0 0 3px rgba(27,63,160,0.1);
+    background: var(--blue-ultra-pale);
+  }
+
+  select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none'%3E%3Cpath d='M1 1.5l5 5 5-5' stroke='%231B3FA0' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    padding-right: 40px;
+    cursor: pointer;
+    color: var(--text);
+  }
+
+  select option { color: var(--text); }
+  select.placeholder-active { color: #B0BBCC; }
+
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  @media (max-width: 480px) { .grid-2 { grid-template-columns: 1fr; } }
+
+  /* Toggle radio buttons */
+  .toggle-group { display: flex; gap: 8px; flex-wrap: wrap; }
+  .toggle-btn { display: none; }
+
+  .toggle-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 18px;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    font-size: 13.5px;
+    font-weight: 500;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: white;
+    user-select: none;
+  }
+
+  .toggle-btn:checked + .toggle-label {
+    background: var(--blue-pale);
+    border-color: var(--blue);
+    color: var(--blue);
+    font-weight: 600;
+  }
+
+  .toggle-label:hover { border-color: var(--blue-light); color: var(--blue); }
+
+  /* Divider */
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 30px 0;
+  }
+
+  /* Submit */
+  .btn-submit {
+    width: 100%;
+    padding: 16px;
+    background: var(--blue);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.25s ease;
+    margin-top: 4px;
+  }
+
+  .btn-submit:hover {
+    background: var(--blue-mid);
+    transform: translateY(-1px);
+    box-shadow: 0 8px 28px rgba(27,63,160,0.3);
+  }
+  .btn-submit:active { transform: translateY(0); }
+  .btn-submit:disabled { opacity: 0.65; cursor: not-allowed; transform: none; box-shadow: none; }
+
+  .btn-inner { display: flex; align-items: center; justify-content: center; gap: 10px; }
+
+  .spinner {
+    width: 16px; height: 16px;
+    border: 2px solid rgba(255,255,255,0.35);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    display: none;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* Notice */
+  .notice {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    background: var(--blue-ultra-pale);
+    border: 1px solid var(--blue-pale);
+    border-radius: 10px;
+    padding: 14px 16px;
+    font-size: 12.5px;
+    color: var(--muted);
+    line-height: 1.55;
+    margin-top: 18px;
+  }
+
+  .notice .icon { font-size: 15px; flex-shrink: 0; margin-top: 1px; }
+
+  /* Error */
+  .error-msg {
+    font-size: 12px;
+    color: #E0334C;
+    margin-top: 5px;
+    display: none;
+    font-weight: 500;
+  }
+  .field-group.has-error input,
+  .field-group.has-error select { border-color: #E0334C; box-shadow: 0 0 0 3px rgba(224,51,76,0.1); }
+  .field-group.has-error .error-msg { display: block; }
+
+  /* Success */
+  .success-screen {
+    display: none;
+    text-align: center;
+    padding: 48px 16px;
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .success-icon {
+    width: 68px; height: 68px;
+    background: rgba(16,185,129,0.1);
+    border: 2px solid rgba(16,185,129,0.3);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 30px;
+    margin: 0 auto 22px;
+  }
+
+  .success-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 26px;
+    font-weight: 800;
+    color: var(--dark);
+    margin-bottom: 10px;
+  }
+
+  .success-text {
+    font-size: 15px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-18px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-pattern"></div>
+<div class="bg-grid"></div>
+
+<div class="container">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="logo-wrap">
+      <div class="logo-box">
+        <div class="logo-text">ESSENTIAL<br>BRANDS</div>
+      </div>
+    </div>
+
+    <div class="divider-header"></div>
+    <h1>Cadastro de <em>Afiliados</em><br>de Beleza</h1>
+    <p class="subtitle">Conectamos criadores de conteúdo com marcas de alto potencial no TikTok Shop. Preencha o formulário e entraremos em contato.</p>
+
+
+  </div>
+
+  <!-- Card -->
+  <div class="card">
+    <div id="form-section">
+
+      <!-- Identificação -->
+      <div class="section-label">Identificação</div>
+
+      <div class="field-group" id="fg-nome">
+        <label>Nome completo <span class="req">*</span></label>
+        <input type="text" id="nome" placeholder="Seu nome completo" autocomplete="name">
+        <div class="error-msg">Por favor, informe seu nome.</div>
+      </div>
+
+      <div class="field-group" id="fg-whatsapp">
+        <label>WhatsApp <span class="req">*</span></label>
+        <input type="tel" id="whatsapp" placeholder="(11) 99999-9999" oninput="maskPhone(this)" maxlength="15">
+        <div class="error-msg">Por favor, informe seu WhatsApp.</div>
+      </div>
+
+      <div class="grid-2">
+        <div class="field-group" id="fg-instagram">
+          <label>Instagram <span class="req">*</span></label>
+          <input type="text" id="instagram" placeholder="@seu_perfil">
+          <div class="error-msg">Informe seu @.</div>
+        </div>
+        <div class="field-group">
+          <label>TikTok</label>
+          <input type="text" id="tiktok" placeholder="@seu_tiktok">
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Perfil -->
+      <div class="section-label">Perfil de Criador</div>
+
+      <div class="grid-2">
+        <div class="field-group" id="fg-seguidores">
+          <label>Total de seguidores <span class="req">*</span></label>
+          <select id="seguidores" class="placeholder-active" onchange="this.classList.remove('placeholder-active')">
+            <option value="" disabled selected>Selecione</option>
+            <option>Menos de 1K</option>
+            <option>1K – 10K</option>
+            <option>10K – 50K</option>
+            <option>50K – 200K</option>
+            <option>200K – 500K</option>
+            <option>Mais de 500K</option>
+          </select>
+          <div class="error-msg">Selecione uma faixa.</div>
+        </div>
+        <div class="field-group" id="fg-nicho">
+          <label>Nicho principal <span class="req">*</span></label>
+          <select id="nicho" class="placeholder-active" onchange="this.classList.remove('placeholder-active')">
+            <option value="" disabled selected>Selecione</option>
+            <option>Maquiagem</option>
+            <option>Skincare</option>
+            <option>Cabelo</option>
+            <option>Perfumaria</option>
+            <option>Beleza Geral</option>
+            <option>Suplementos</option>
+            <option>Lifestyle / Moda</option>
+            <option>Outro</option>
+          </select>
+          <div class="error-msg">Selecione seu nicho.</div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Experiência -->
+      <div class="section-label">Experiência Comercial</div>
+
+      <div class="field-group">
+        <label>Já vende no TikTok Shop? <span class="req">*</span></label>
+        <div class="toggle-group" id="tiktokshop-group">
+          <input class="toggle-btn" type="radio" name="tiktokshop" id="ts-sim" value="Sim">
+          <label class="toggle-label" for="ts-sim">✅ Sim, já vendo</label>
+          <input class="toggle-btn" type="radio" name="tiktokshop" id="ts-nao" value="Não">
+          <label class="toggle-label" for="ts-nao">🔜 Ainda não</label>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label>Tem CNPJ? <span class="req">*</span></label>
+        <div class="toggle-group" id="cnpj-group">
+          <input class="toggle-btn" type="radio" name="cnpj" id="cnpj-sim" value="Sim">
+          <label class="toggle-label" for="cnpj-sim">✅ Sim</label>
+          <input class="toggle-btn" type="radio" name="cnpj" id="cnpj-nao" value="Não">
+          <label class="toggle-label" for="cnpj-nao">❌ Não</label>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label>Aceita campanhas com comissão? <span class="req">*</span></label>
+        <div class="toggle-group" id="comissao-group">
+          <input class="toggle-btn" type="radio" name="comissao" id="com-sim" value="Sim">
+          <label class="toggle-label" for="com-sim">💰 Sim, aceito</label>
+          <input class="toggle-btn" type="radio" name="comissao" id="com-nao" value="Não, quero saber mais">
+          <label class="toggle-label" for="com-nao">🤔 Quero saber mais</label>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <button class="btn-submit" id="btn-submit" onclick="submitForm()">
+        <div class="btn-inner">
+          <div class="spinner" id="spinner"></div>
+          <span id="btn-text">Enviar cadastro</span>
+        </div>
+      </button>
+
+      <div class="notice">
+        <div class="icon">🔒</div>
+        <div>Seus dados são utilizados exclusivamente para avaliação do perfil de afiliado e não serão compartilhados com terceiros.</div>
+      </div>
+
+    </div>
+
+    <!-- Success -->
+    <div class="success-screen" id="success-screen">
+      <div class="success-icon">✓</div>
+      <div class="success-title">Cadastro enviado!</div>
+      <p class="success-text">
+        Recebemos suas informações com sucesso.<br>
+        Nossa equipe vai analisar seu perfil e entrar em contato em breve.
+      </p>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // ─── CONFIGURAÇÃO ────────────────────────────────────────────────
+  // Cole aqui a URL do seu Google Apps Script Web App após publicar
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyaDc1stgR6Uw2fuvM7bApgzQU-n2UEcA3S2MepMMTOJnS-zzPyLg0nbJ9Da7D4QYIK/exec";
+  // ────────────────────────────────────────────────────────────────
+
+  function maskPhone(input) {
+    let v = input.value.replace(/\D/g, '').slice(0, 11);
+    if (v.length > 10) v = v.replace(/^(\d{2})(\d{5})(\d{4})$/, '($1) $2-$3');
+    else if (v.length > 6) v = v.replace(/^(\d{2})(\d{4})(\d*)$/, '($1) $2-$3');
+    else if (v.length > 2) v = v.replace(/^(\d{2})(\d*)$/, '($1) $2');
+    input.value = v;
+  }
+
+  function getRadio(name) {
+    const el = document.querySelector(`input[name="${name}"]:checked`);
+    return el ? el.value : "";
+  }
+
+  function setError(fgId, show) {
+    const fg = document.getElementById(fgId);
+    if (fg) fg.classList.toggle('has-error', show);
+  }
+
+  function highlightToggle(id, show) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.style.outline = show ? '2px solid #E0334C' : 'none';
+    el.style.borderRadius = '8px';
+    el.style.padding = show ? '6px' : '0';
+  }
+
+  function validate() {
+    let ok = true;
+    const nome = document.getElementById('nome').value.trim();
+    const whatsapp = document.getElementById('whatsapp').value.trim();
+    const ig = document.getElementById('instagram').value.trim();
+    const seg = document.getElementById('seguidores').value;
+    const nicho = document.getElementById('nicho').value;
+    const ts = getRadio('tiktokshop');
+    const cnpj = getRadio('cnpj');
+    const com = getRadio('comissao');
+
+    setError('fg-nome', !nome); if (!nome) ok = false;
+    setError('fg-whatsapp', !whatsapp); if (!whatsapp) ok = false;
+    setError('fg-instagram', !ig); if (!ig) ok = false;
+    setError('fg-seguidores', !seg); if (!seg) ok = false;
+    setError('fg-nicho', !nicho); if (!nicho) ok = false;
+    highlightToggle('tiktokshop-group', !ts); if (!ts) ok = false;
+    highlightToggle('cnpj-group', !cnpj); if (!cnpj) ok = false;
+    highlightToggle('comissao-group', !com); if (!com) ok = false;
+
+    return ok;
+  }
+
+  async function submitForm() {
+    if (!validate()) return;
+
+    const btn = document.getElementById('btn-submit');
+    const spinner = document.getElementById('spinner');
+    const btnText = document.getElementById('btn-text');
+
+    btn.disabled = true;
+    spinner.style.display = 'block';
+    btnText.textContent = 'Enviando…';
+
+    const data = {
+      nome: document.getElementById('nome').value.trim(),
+      whatsapp: document.getElementById('whatsapp').value.trim(),
+      instagram: document.getElementById('instagram').value.trim(),
+      tiktok: document.getElementById('tiktok').value.trim(),
+      seguidores: document.getElementById('seguidores').value,
+      nicho: document.getElementById('nicho').value,
+      tiktokshop: getRadio('tiktokshop'),
+      cnpj: getRadio('cnpj'),
+      comissao: getRadio('comissao'),
+      data: new Date().toLocaleString('pt-BR')
+    };
+
+    if (SCRIPT_URL === "SUA_URL_DO_APPS_SCRIPT_AQUI") {
+      await new Promise(r => setTimeout(r, 1400));
+      showSuccess();
+      return;
+    }
+
+    try {
+      await fetch(SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      showSuccess();
+    } catch (e) {
+      btn.disabled = false;
+      spinner.style.display = 'none';
+      btnText.textContent = 'Enviar cadastro';
+      alert('Erro ao enviar. Verifique sua conexão e tente novamente.');
+    }
+  }
+
+  function showSuccess() {
+    document.getElementById('form-section').style.display = 'none';
+    const s = document.getElementById('success-screen');
+    s.style.display = 'block';
+  }
+</script>
+
+<!--
+═══════════════════════════════════════════════════════════════════
+  COMO CONECTAR AO GOOGLE SHEETS
+═══════════════════════════════════════════════════════════════════
+
+1. Crie uma planilha no Google Sheets chamada "Afiliados Hub"
+   Cabeçalho linha 1:
+   Data | Nome | WhatsApp | Instagram | TikTok | Seguidores | Nicho | TikTok Shop | CNPJ | Comissão
+
+2. Extensões → Apps Script → apague tudo e cole:
+
+function doPost(e) {
+  const sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+  const data = JSON.parse(e.postData.contents);
+  sheet.appendRow([
+    data.data, data.nome, data.whatsapp, data.instagram, data.tiktok,
+    data.seguidores, data.nicho, data.tiktokshop, data.cnpj, data.comissao
+  ]);
+  return ContentService
+    .createTextOutput(JSON.stringify({ status: "ok" }))
+    .setMimeType(ContentService.MimeType.JSON);
+}
+
+3. Implantar → Nova implantação
+   - Tipo: App da Web
+   - Executar como: Eu mesmo
+   - Acesso: Qualquer pessoa
+
+4. Cole a URL gerada em: const SCRIPT_URL = "COLE_AQUI"
+
+5. Hospede e coloque o link na bio!
+═══════════════════════════════════════════════════════════════════
+-->
+</body>
+</html>
